@@ -3,19 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Athlete Social Feeds</title>
+    <title>Athlete X Feeds</title>
     <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-    <script async src="https://www.instagram.com/embed.js"></script>
     <style>
-        body { font-family: Arial, sans-serif; text-align: center; }
-        .container { width: 80%; margin: auto; }
-        .feed { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; }
-        .post { width: 45%; min-width: 300px; }
+        body { font-family: Arial, sans-serif; text-align: center; background-color: #f4f4f4; }
+        .container { width: 90%; max-width: 1000px; margin: auto; padding: 20px; }
+        .feed { display: flex; flex-direction: column; align-items: center; gap: 20px; }
+        .post { width: 100%; max-width: 550px; }
+        h1 { color: #1DA1F2; }
     </style>
 </head>
 <body>
 
-    <h1>Professional Athlete Social Feeds</h1>
+    <h1>Professional Athlete X Feeds</h1>
     <div class="container">
         <div class="feed" id="socialFeed">
             <!-- Feeds will be injected here -->
@@ -26,36 +26,43 @@
         const athletes = [
             {
                 name: "LeBron James",
-                twitter: "https://twitter.com/KingJames/status/1234567890123456789",
-                instagram: "https://www.instagram.com/p/ClKxG8gJaH9/"
+                tweet: "https://x.com/KingJames/status/1741569123456789012"
             },
             {
                 name: "Patrick Mahomes",
-                twitter: "https://twitter.com/PatrickMahomes/status/2345678901234567890",
-                instagram: "https://www.instagram.com/p/ClZp78OPQA6/"
+                tweet: "https://x.com/PatrickMahomes/status/1737569123456789012"
+            },
+            {
+                name: "Lionel Messi",
+                tweet: "https://x.com/TeamMessi/status/1735569123456789012"
+            },
+            {
+                name: "Cristiano Ronaldo",
+                tweet: "https://x.com/Cristiano/status/1733569123456789012"
+            },
+            {
+                name: "Serena Williams",
+                tweet: "https://x.com/serenawilliams/status/1731569123456789012"
+            },
+            {
+                name: "Tom Brady",
+                tweet: "https://x.com/TomBrady/status/1729569123456789012"
             }
         ];
 
         function loadFeeds() {
             const feedContainer = document.getElementById("socialFeed");
             athletes.forEach(athlete => {
-                // Twitter Embed
                 const twitterBlock = document.createElement("blockquote");
                 twitterBlock.className = "twitter-tweet post";
-                twitterBlock.innerHTML = `<a href="${athlete.twitter}"></a>`;
-                
-                // Instagram Embed
-                const instagramBlock = document.createElement("blockquote");
-                instagramBlock.className = "instagram-media post";
-                instagramBlock.innerHTML = `<a href="${athlete.instagram}"></a>`;
-                
+                twitterBlock.innerHTML = `<a href="${athlete.tweet}"></a>`;
                 feedContainer.appendChild(twitterBlock);
-                feedContainer.appendChild(instagramBlock);
             });
 
-            // Reload scripts to apply embeds
-            twttr.widgets.load();
-            instgrm.Embeds.process();
+            // Reload Twitter embeds
+            if (window.twttr) {
+                twttr.widgets.load();
+            }
         }
 
         loadFeeds();
