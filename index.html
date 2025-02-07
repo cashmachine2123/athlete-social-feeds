@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Athlete Social Feeds</title>
+    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+    <script async src="https://www.instagram.com/embed.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        .container { width: 80%; margin: auto; }
+        .feed { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; }
+        .post { width: 45%; min-width: 300px; }
+    </style>
+</head>
+<body>
+
+    <h1>Professional Athlete Social Feeds</h1>
+    <div class="container">
+        <div class="feed" id="socialFeed">
+            <!-- Feeds will be injected here -->
+        </div>
+    </div>
+
+    <script>
+        const athletes = [
+            {
+                name: "LeBron James",
+                twitter: "https://twitter.com/KingJames/status/1234567890123456789",
+                instagram: "https://www.instagram.com/p/ClKxG8gJaH9/"
+            },
+            {
+                name: "Patrick Mahomes",
+                twitter: "https://twitter.com/PatrickMahomes/status/2345678901234567890",
+                instagram: "https://www.instagram.com/p/ClZp78OPQA6/"
+            }
+        ];
+
+        function loadFeeds() {
+            const feedContainer = document.getElementById("socialFeed");
+            athletes.forEach(athlete => {
+                // Twitter Embed
+                const twitterBlock = document.createElement("blockquote");
+                twitterBlock.className = "twitter-tweet post";
+                twitterBlock.innerHTML = `<a href="${athlete.twitter}"></a>`;
+                
+                // Instagram Embed
+                const instagramBlock = document.createElement("blockquote");
+                instagramBlock.className = "instagram-media post";
+                instagramBlock.innerHTML = `<a href="${athlete.instagram}"></a>`;
+                
+                feedContainer.appendChild(twitterBlock);
+                feedContainer.appendChild(instagramBlock);
+            });
+
+            // Reload scripts to apply embeds
+            twttr.widgets.load();
+            instgrm.Embeds.process();
+        }
+
+        loadFeeds();
+    </script>
+
+</body>
+</html>
